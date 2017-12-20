@@ -221,9 +221,9 @@ public class Main_Screen extends Activity implements SalutDataCallback {
     protected void onDestroy() {
         super.onDestroy();
         if (isHost) {
-            salut.stopNetworkService(true);
+            salut.stopNetworkService(false);
         } else {
-            salut.unregisterClient(true);
+            salut.unregisterClient(false);
         }
     }
 
@@ -238,14 +238,11 @@ public class Main_Screen extends Activity implements SalutDataCallback {
 
         Contact newContact = intent.getExtras().getParcelable("result");
 
-
-
         //send result to peer
         Message newMessage = new Message();
 
         if (requestCode == REQUEST_ADD) {newMessage.myAction = Message.ADD;}
-        else //if (requestCode == REQUEST_UPDATE)
-            {newMessage.myAction = Message.UPDATE;}
+        else {newMessage.myAction = Message.UPDATE;}
 
         newMessage.newContact = newContact.toString();
         newMessage.sender = android.os.Build.MODEL+ " (host)";
